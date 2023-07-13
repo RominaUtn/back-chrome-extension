@@ -10,10 +10,18 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api', function (req, res) {
-    return res.json({hello: 'dog'});
-  });
-  
+app.get('/api', async function (req, res) {
+    const { url } = req.body;
+
+    let ret = 'Debe enviar una url valida';
+
+    if (url) {
+        ret = await videoDownloadLink(url);
+    }
+
+    res.send({ ret });
+});
+
 app.post('/api', async (req, res) => {
 
     const { url } = req.body;

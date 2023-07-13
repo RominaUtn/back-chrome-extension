@@ -10,7 +10,10 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+app.get('/api', function (req, res) {
+    return res.json({hello: 'dog'});
+  });
+  
 app.post('/api', async (req, res) => {
 
     const { url } = req.body;

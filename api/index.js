@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.post('/', async (req, res) => {
+app.post('/api', async (req, res) => {
 
     const { url } = req.body;
 

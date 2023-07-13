@@ -2,6 +2,8 @@ const express = require('express')
 require('dotenv').config();
 const puppeteer = require('puppeteer');
 const bodyParser = require('body-parser');
+const Chromium = require('chrome-aws-lambda');
+
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -43,7 +45,10 @@ app.listen(port, () => {
 async function videoDownloadLink(url) {
 
     const browser = await puppeteer.launch({
-        headless: 'new'
+        args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
+        defaultViewport: Chromium.defaultViewport,
+        executablePath: await Chromium.executablePath,
+        ignoreHTTPSErrors: true,
     });
 
     const page = await browser.newPage();

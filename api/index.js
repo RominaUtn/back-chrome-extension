@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api', async function (req, res) {
+app.get('/api',async function (req, res) {
     const { url } = req.body;
 
     let ret = 'Debe enviar una url valida';
@@ -20,8 +20,8 @@ app.get('/api', async function (req, res) {
     }
 
     res.send({ ret });
-});
-
+  });
+  
 app.post('/api', async (req, res) => {
 
     const { url } = req.body;
@@ -50,6 +50,9 @@ async function videoDownloadLink(url) {
 
     // Emula un dispositivo móvil
     const mobileDevice = puppeteer.devices['iPhone X'];
+
+    console.log(mobileDevice);
+
     await page.emulate(mobileDevice);
 
     // Navega a la página en versión móvil

@@ -42,6 +42,29 @@ app.listen(port, () => {
 
 async function videoDownloadLink(url) {
 
+    const browser = await puppeteer.launch({
+        headless: 'new'
+    });
 
-    return url;
+    const page = await browser.newPage();
+
+    // Emula un dispositivo móvil
+    const mobileDevice = puppeteer.devices['iPhone X'];
+    await page.emulate(mobileDevice);
+
+    // Navega a la página en versión móvil
+    await page.goto(url);
+
+    // Espera a que la etiqueta <video> esté disponible
+    await page.waitForSelector('video');
+
+    // Obtiene el valor del atributo src de la etiqueta <video>
+    const videoSrc = await page.$eval('video', (element) => element.src);
+
+    // Descarga el video utilizando el enlace obtenido
+    // Aquí puedes implementar la lógica de descarga según tus necesidades
+
+    await browser.close();
+
+    return videoSrc;
 }

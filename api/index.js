@@ -44,13 +44,24 @@ app.listen(port, () => {
 
 async function videoDownloadLink(url) {
 
-    const browser = await puppeteer.launch({
+    const options = {
         args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
         defaultViewport: Chromium.defaultViewport,
         executablePath: await Chromium.executablePath,
-        headless: "new",
+        headless: Chromium.headless,
         ignoreHTTPSErrors: true,
-    });
+    };
+
+    const options_2 = { 
+        args: Chromium.args,
+        executablePath: 
+            process.platform === 'win32'
+            ? 'C:\\Program Files (x86)\\\Google\\\Chrome\\\Application\\\chrome.exe'
+            : process.platform === 'linux'
+            ? '/usr/bin/google-chrome'
+            : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    };
+    const browser = await puppeteer.launch(options);
 
     const page = await browser.newPage();
 

@@ -48,6 +48,7 @@ async function videoDownloadLink(url) {
         args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
         defaultViewport: Chromium.defaultViewport,
         executablePath: await Chromium.executablePath,
+        headless: "new",
         ignoreHTTPSErrors: true,
     });
 
